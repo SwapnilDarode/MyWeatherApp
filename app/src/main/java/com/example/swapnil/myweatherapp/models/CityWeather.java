@@ -2,9 +2,7 @@ package com.example.swapnil.myweatherapp.models;
 
 import java.util.List;
 
-/**
- * Created by ekhamees on 9/2/15.
- */
+
 public class CityWeather {
     private String message;
 

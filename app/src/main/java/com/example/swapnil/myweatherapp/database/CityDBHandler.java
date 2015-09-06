@@ -10,9 +10,7 @@ import com.example.swapnil.myweatherapp.models.City;
 
 import java.util.ArrayList;
 
-/**
- * Created by ekhamees on 9/2/15.
- */
+
 public class CityDBHandler {
     private SQLiteDatabase database;
     private CityDBHelper dbHelper;
@@ -58,7 +56,7 @@ public class CityDBHandler {
         return cityMap;
     }
 
-    public void addCityInfo(City city){
+    public void addCityInfo(City city) {
         open();
 
         ContentValues values = new ContentValues();
@@ -75,14 +73,14 @@ public class CityDBHandler {
 
     }
 
-    public ArrayList<City> getCitiesInfo(String[] moreCities){
+    public ArrayList<City> getCitiesInfo(String[] moreCities) {
         ArrayList<City> cities = new ArrayList<>();
         //String query = "SELECT * FROM " + CityMap.TABLE_NAME + " WHERE name IN (" + getPlaceHolders(moreCities.length) + ")";
 //        Cursor cursor = database.rawQuery(query, moreCities); //
 
 
-        for (String cityName : moreCities){
-            String query = "SELECT * FROM " + CityMap.TABLE_NAME + " WHERE NAME = '" + cityName.trim() +"'";
+        for (String cityName : moreCities) {
+            String query = "SELECT * FROM " + CityMap.TABLE_NAME + " WHERE NAME = '" + cityName.trim() + "'";
 
             Cursor cursor = database.rawQuery(query, null); //
 
@@ -96,11 +94,10 @@ public class CityDBHandler {
         }
 
 
-
         return cities;
     }
 
-    private String getPlaceHolders(int count){
+    private String getPlaceHolders(int count) {
         StringBuilder sb = new StringBuilder(count * 2 - 1); // placeholders and between comma - thas it
         sb.append("?");
         for (int i = 1; i < count; i++) {

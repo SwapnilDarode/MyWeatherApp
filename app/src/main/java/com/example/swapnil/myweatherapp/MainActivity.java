@@ -397,8 +397,8 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
-                }else{
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.nointernet),Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.nointernet), Toast.LENGTH_LONG).show();
                     return null;
                 }
                 // if GPS Enabled get lat/long using GPS Services

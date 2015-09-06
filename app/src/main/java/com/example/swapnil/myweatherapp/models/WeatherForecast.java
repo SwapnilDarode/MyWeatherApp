@@ -1,12 +1,5 @@
 package com.example.swapnil.myweatherapp.models;
 
-import android.util.Log;
-
-import com.example.swapnil.myweatherapp.R;
-
-/**
- * Created by ekhamees on 9/3/15.
- */
 public class WeatherForecast {
     public City city;
     public WeatherMap[] list;
@@ -29,7 +22,7 @@ public class WeatherForecast {
     }
 
     /**
-     *   Child member class
+     * Child member class
      */
     public class TemperatureDetails {
         public String min;

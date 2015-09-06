@@ -22,9 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by ekhamees on 9/2/15.
- */
+
 public class WeatherInfoHandler {
 
     Activity mContext;
@@ -35,35 +33,35 @@ public class WeatherInfoHandler {
     private final String multiCityWeatherAPI = "http://api.openweathermap.org/data/2.5/group?id=%s,1&APPID=%s&units=metric&mode=json";
 
 
-    public WeatherInfoHandler(Activity context){
+    public WeatherInfoHandler(Activity context) {
         this.mContext = context;
         progressDialog = new ProgressDialog(context);
     }
 
-    public void getCityWeather(String lat, String lon, int days, TaskCompleteListener listener){
+    public void getCityWeather(String lat, String lon, int days, TaskCompleteListener listener) {
 
         FetchCityWeather asyncTask = new FetchCityWeather(listener);
 
         asyncTask.execute(lat, lon, String.valueOf(days));
     }
 
-    public void getCurrentCityWeather(String lat, String lon, TaskCompleteListener listener){
+    public void getCurrentCityWeather(String lat, String lon, TaskCompleteListener listener) {
         FetchCurrentCityWeather task = new FetchCurrentCityWeather(listener);
-        task.execute(lat,lon);
+        task.execute(lat, lon);
     }
 
-    public void getNultiCityWeather(String Ids, TaskCompleteListener listener){
+    public void getNultiCityWeather(String Ids, TaskCompleteListener listener) {
         FectMultiCityWeather multiCityTask = new FectMultiCityWeather(listener);
         multiCityTask.execute(Ids);
     }
 
-    private class FetchCityWeather extends AsyncTask<String, Integer, String>{
+    private class FetchCityWeather extends AsyncTask<String, Integer, String> {
 
         TaskCompleteListener taskCompleteListener;
 
         WeatherForecast forecast;
 
-        public FetchCityWeather(TaskCompleteListener listener){
+        public FetchCityWeather(TaskCompleteListener listener) {
             this.taskCompleteListener = listener;
         }
 
@@ -110,9 +108,9 @@ public class WeatherInfoHandler {
                     forecast = null;
                 }
 
-            }catch (MalformedURLException muEx){
+            } catch (MalformedURLException muEx) {
                 weatherData = null;
-            }catch (Exception ioEx){
+            } catch (Exception ioEx) {
                 weatherData = null;
             }
 
@@ -122,7 +120,7 @@ public class WeatherInfoHandler {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-           taskCompleteListener.onComplete(forecast);
+            taskCompleteListener.onComplete(forecast);
             progressDialog.dismiss();
         }
 
@@ -132,11 +130,11 @@ public class WeatherInfoHandler {
         }
     }
 
-    private class FetchCurrentCityWeather extends AsyncTask<String, Void, String>{
+    private class FetchCurrentCityWeather extends AsyncTask<String, Void, String> {
 
         TaskCompleteListener taskCompleteListener;
 
-        public FetchCurrentCityWeather(TaskCompleteListener listener){
+        public FetchCurrentCityWeather(TaskCompleteListener listener) {
             this.taskCompleteListener = listener;
         }
 
@@ -154,7 +152,7 @@ public class WeatherInfoHandler {
 
             int progress = 0;
             try {
-                String callerUrl = String.format(cityWeatherAPI,latitude,longitude, mContext.getResources().getString(R.string.weather_map_key));
+                String callerUrl = String.format(cityWeatherAPI, latitude, longitude, mContext.getResources().getString(R.string.weather_map_key));
 
                 Log.e("CALL URL", callerUrl);
 
@@ -180,11 +178,11 @@ public class WeatherInfoHandler {
                     weatherData = null;
                 }
 
-            }catch (MalformedURLException muEx){
+            } catch (MalformedURLException muEx) {
                 weatherData = null;
-            }catch (JSONException jsonEx){
+            } catch (JSONException jsonEx) {
                 weatherData = null;
-            }catch (IOException ioEx){
+            } catch (IOException ioEx) {
                 weatherData = null;
             }
 
@@ -194,19 +192,19 @@ public class WeatherInfoHandler {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            WeatherMap weatherMap = new Gson().fromJson(s,WeatherMap.class);
+            WeatherMap weatherMap = new Gson().fromJson(s, WeatherMap.class);
             this.taskCompleteListener.onComplete(weatherMap);
             progressDialog.dismiss();
         }
     }
 
-    private class FectMultiCityWeather extends AsyncTask<String, Void, String>{
+    private class FectMultiCityWeather extends AsyncTask<String, Void, String> {
 
         TaskCompleteListener taskCompleteListener;
         MultiCityWeather multiCityWeather;
         String weatherData;
 
-        public FectMultiCityWeather(TaskCompleteListener listener){
+        public FectMultiCityWeather(TaskCompleteListener listener) {
             this.taskCompleteListener = listener;
         }
 
@@ -216,7 +214,7 @@ public class WeatherInfoHandler {
             String cityIds = params[0];
 
             try {
-                String callerUrl = String.format(multiCityWeatherAPI,cityIds, mContext.getResources().getString(R.string.weather_map_key));
+                String callerUrl = String.format(multiCityWeatherAPI, cityIds, mContext.getResources().getString(R.string.weather_map_key));
 
                 Log.e("CALL URL", callerUrl);
 
@@ -243,11 +241,11 @@ public class WeatherInfoHandler {
                     weatherData = null;
                 }
 
-            }catch (MalformedURLException muEx){
+            } catch (MalformedURLException muEx) {
                 weatherData = null;
-            }catch (JSONException jsonEx){
+            } catch (JSONException jsonEx) {
                 weatherData = null;
-            }catch (IOException ioEx){
+            } catch (IOException ioEx) {
                 weatherData = null;
             }
 

@@ -4,9 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by ekhamees on 9/2/15.
- */
+
 public class CityDBHelper extends SQLiteOpenHelper {
 
     static final int DATABASE_VERSION = 1;
@@ -23,6 +21,7 @@ public class CityDBHelper extends SQLiteOpenHelper {
     public CityDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_CITYMAPTABLE);

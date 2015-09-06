@@ -2,10 +2,8 @@ package com.example.swapnil.myweatherapp.dataAdapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,25 +13,22 @@ import android.widget.TextView;
 
 import com.example.swapnil.myweatherapp.R;
 import com.example.swapnil.myweatherapp.models.WeatherForecast;
-import com.example.swapnil.myweatherapp.models.WeatherMap;
 import com.example.swapnil.myweatherapp.models.WeatherUtil;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by ekhamees on 9/3/15.
- */
+
 public class CityForecastAdapter extends ArrayAdapter<WeatherForecast.WeatherMap> {
 
     Context mContext;
     ArrayList<WeatherForecast.WeatherMap> map;
-    public CityForecastAdapter(Context context,int res, ArrayList<WeatherForecast.WeatherMap> list){
-        super(context,res, list);
+
+    public CityForecastAdapter(Context context, int res, ArrayList<WeatherForecast.WeatherMap> list) {
+        super(context, res, list);
         this.mContext = context;
         this.map = list;
     }
@@ -49,15 +44,15 @@ public class CityForecastAdapter extends ArrayAdapter<WeatherForecast.WeatherMap
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.forecast_cell, parent, false);
 
-        TextView txtDate = (TextView)convertView.findViewById(R.id.txtDate);
-        TextView txtMax = (TextView)convertView.findViewById(R.id.txtMax);
-        TextView txtMin = (TextView)convertView.findViewById(R.id.txtMin);
-        TextView txtDay = (TextView)convertView.findViewById(R.id.txtDay);
-        TextView txtNight = (TextView)convertView.findViewById(R.id.txtNight);
-        TextView txtWind = (TextView)convertView.findViewById(R.id.txtWind);
-        TextView txtInfo = (TextView)convertView.findViewById(R.id.txtInfo);
+        TextView txtDate = (TextView) convertView.findViewById(R.id.txtDate);
+        TextView txtMax = (TextView) convertView.findViewById(R.id.txtMax);
+        TextView txtMin = (TextView) convertView.findViewById(R.id.txtMin);
+        TextView txtDay = (TextView) convertView.findViewById(R.id.txtDay);
+        TextView txtNight = (TextView) convertView.findViewById(R.id.txtNight);
+        TextView txtWind = (TextView) convertView.findViewById(R.id.txtWind);
+        TextView txtInfo = (TextView) convertView.findViewById(R.id.txtInfo);
 
-        ImageView imgFWeather = (ImageView)convertView.findViewById(R.id.imgFWeather);
+        ImageView imgFWeather = (ImageView) convertView.findViewById(R.id.imgFWeather);
 
         WeatherForecast.WeatherMap wMap = this.map.get(position);
 
@@ -76,7 +71,7 @@ public class CityForecastAdapter extends ArrayAdapter<WeatherForecast.WeatherMap
         Picasso.with(mContext).load(WeatherUtil.setWeatherIcon((wMap.weather[0].icon))).into(imgFWeather);
 
         if (position % 2 == 0) {
-            convertView.setBackgroundColor(Color.rgb(235,235,235));
+            convertView.setBackgroundColor(Color.rgb(235, 235, 235));
         } else {
             convertView.setBackgroundColor(Color.WHITE);
         }
@@ -85,7 +80,7 @@ public class CityForecastAdapter extends ArrayAdapter<WeatherForecast.WeatherMap
     }
 
 
-    Spanned getFoarmatedText(String prefix, String val){
+    Spanned getFoarmatedText(String prefix, String val) {
         return Html.fromHtml("<b>" + prefix + " " + val + "&#8451;</b>");
     }
 }

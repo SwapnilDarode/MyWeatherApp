@@ -2,7 +2,6 @@ package com.example.swapnil.myweatherapp.dataAdapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -11,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.swapnil.myweatherapp.ForcastActivity;
 import com.example.swapnil.myweatherapp.R;
 import com.example.swapnil.myweatherapp.database.CityMap;
-import com.example.swapnil.myweatherapp.models.WeatherForecast;
 import com.example.swapnil.myweatherapp.models.WeatherMap;
 import com.example.swapnil.myweatherapp.models.WeatherUtil;
 import com.squareup.picasso.Picasso;
@@ -35,8 +32,8 @@ public class MultiCityWeatherAdapter extends ArrayAdapter<WeatherMap> {
     Context mContext;
     ArrayList<WeatherMap> map;
 
-    public MultiCityWeatherAdapter (Context context,int res, ArrayList<WeatherMap> list){
-        super(context,res, list);
+    public MultiCityWeatherAdapter(Context context, int res, ArrayList<WeatherMap> list) {
+        super(context, res, list);
         this.mContext = context;
         this.map = list;
     }
@@ -67,9 +64,9 @@ public class MultiCityWeatherAdapter extends ArrayAdapter<WeatherMap> {
         txtSunset = (TextView) convertView.findViewById(R.id.txtSunset);
         txtWind = (TextView) convertView.findViewById(R.id.txtWind);
         txtWeatherInfo = (TextView) convertView.findViewById(R.id.txtWeatherInfo);
-        btnGetInfo = (ImageButton)convertView.findViewById(R.id.btnGetInfo);
-        imgWeather = (ImageView)convertView.findViewById(R.id.imgWeather);
-       // btnGetInfo.setVisibility(View.GONE);
+        btnGetInfo = (ImageButton) convertView.findViewById(R.id.btnGetInfo);
+        imgWeather = (ImageView) convertView.findViewById(R.id.imgWeather);
+        // btnGetInfo.setVisibility(View.GONE);
 
         txtCityName.setText(weatherMap.name + ", " + weatherMap.sys.country);
 
@@ -112,8 +109,7 @@ public class MultiCityWeatherAdapter extends ArrayAdapter<WeatherMap> {
     }
 
 
-
-    Spanned getFoarmatedText(String prefix, String val){
+    Spanned getFoarmatedText(String prefix, String val) {
         return Html.fromHtml("<b>" + prefix + " " + val + "&#8451;</b>");
     }
 }

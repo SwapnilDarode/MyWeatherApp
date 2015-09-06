@@ -17,9 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-/**
- * Created by ekhamees on 9/2/15.
- */
+
 public class CityInfoHandler {
 
     Context mContext;
@@ -45,7 +43,7 @@ public class CityInfoHandler {
 
         TaskCompleteListener taskCompleteListener;
 
-        public CityInfoTask(TaskCompleteListener listener){
+        public CityInfoTask(TaskCompleteListener listener) {
             this.taskCompleteListener = listener;
         }
 
@@ -106,7 +104,7 @@ public class CityInfoHandler {
 
             cityMap.setCorordinates(cursor.nextToken(), cursor.nextToken());
 
-            if(cursor.countTokens()==5) {
+            if (cursor.countTokens() == 5) {
                 cityMap.country = (cursor.nextToken());
             }
             return cityMap;
