@@ -24,4 +24,5 @@
     <string name="windSpeed">Wind Speed : </string>
 
     <string name="oops">Oops! Something went wrong.</string>
+    <string name="select_message">Please type city name/initials to select atleast one city from the suggestion list.</string>
 </resources>

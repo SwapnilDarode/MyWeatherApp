@@ -30,7 +30,8 @@ public class CityDBHandler {
     public ArrayList<City> getAllCities() {
         ArrayList<City> cityList = new ArrayList<City>();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM " + CityMap.TABLE_NAME, null); //database.query(CityMap.TABLE_NAME,CityMap.ALL_COLUMNS, null, null, null, null, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + CityMap.TABLE_NAME, null);
+        //database.query(CityMap.TABLE_NAME,CityMap.ALL_COLUMNS, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

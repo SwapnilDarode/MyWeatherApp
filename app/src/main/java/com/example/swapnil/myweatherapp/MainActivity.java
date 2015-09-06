@@ -275,6 +275,8 @@ public class MainActivity extends AppCompatActivity {
 
                     populateWeatherForCities();
                     dialog.dismiss();
+                }else{
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.select_message), Toast.LENGTH_SHORT).show();
                 }
             }
         });
