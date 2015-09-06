@@ -30,6 +30,8 @@ public class ForcastActivity extends AppCompatActivity {
             lon = String.valueOf(extras.getDouble(CityMap.COLUMN_LON));
 
             populateWeatherForecast();
+        }else {
+           showErrMessage();
         }
     }
 
@@ -44,10 +46,14 @@ public class ForcastActivity extends AppCompatActivity {
                     ListView lstForecast = (ListView) findViewById(R.id.lstForecast);
                     lstForecast.setAdapter(new CityForecastAdapter(ForcastActivity.this, R.layout.forecast_cell, new ArrayList<WeatherForecast.WeatherMap>(Arrays.asList(forecast.list))));
                 } else {
-                    Toast.makeText(ForcastActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
-                    finish();
+                    showErrMessage();
                 }
             }
         });
+    }
+
+    void showErrMessage(){
+        Toast.makeText(ForcastActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
+        finish();
     }
 }

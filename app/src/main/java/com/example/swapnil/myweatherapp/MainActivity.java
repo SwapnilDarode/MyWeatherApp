@@ -59,10 +59,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<City> allCities;
     LocationManager mLocationManager;
     static final int LOCATION_ENABLED = 1;
-    TextView txtCityName, txtToday, txtmaxTemp, txtMinTemp, txtCurrentTemp, txtSunrise, txtSunset, txtWind, txtWeatherInfo;
+    TextView txtCityName, txtToday, txtmaxTemp, txtMinTemp, txtCurrentTemp, txtSunrise, txtSunset, txtWind, txtWeatherInfo, txtNoInternet;
     ImageView imgWeather;
     ImageButton btnGetInfo;
     Button btnAddCities;
+    RelativeLayout rlParent;
     String[] moreCities = null;
 
     boolean isGPSEnabled = false;
@@ -82,70 +83,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.txtCityName = (TextView) findViewById(R.id.txtCityName);
-        this.txtToday = (TextView) findViewById(R.id.txtToday);
-        this.txtCurrentTemp = (TextView) findViewById(R.id.txtCurrentTemperature);
-        this.txtmaxTemp = (TextView) findViewById(R.id.txtMaxTemperature);
-        this.txtMinTemp = (TextView) findViewById(R.id.txtMinTemperature);
-        this.txtSunrise = (TextView) findViewById(R.id.txtSunrise);
-        this.txtSunset = (TextView) findViewById(R.id.txtSunset);
-        this.txtWind = (TextView) findViewById(R.id.txtWind);
-        this.txtWeatherInfo = (TextView) findViewById(R.id.txtWeatherInfo);
-        this.btnGetInfo = (ImageButton) findViewById(R.id.btnGetInfo);
-        this.imgWeather = (ImageView) findViewById(R.id.imgWeather);
-        this.btnAddCities = (Button) findViewById(R.id.btnAddCity);
+        initControls();
 
-        btnGetInfo.setVisibility(View.GONE);
-        btnGetInfo.setOnClickListener(getinfoClickListner);
-
-        RelativeLayout rlParent = (RelativeLayout) findViewById(R.id.rlParent);
-        TextView txtNoInternet = (TextView) findViewById(R.id.txtNoInternet);
-
-        btnAddCities.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSelectCityDialog();
-            }
-        });
-
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        isNetworkEnabled = isNetworkConnectionAvailable(this);
-        if (isNetworkEnabled) {
-            rlParent.setVisibility(View.VISIBLE);
-            txtNoInternet.setVisibility(View.GONE);
-            currentLocation = getLocation();
-
-            if (this.canGetLocation) {
-                btnGetInfo.setVisibility(View.VISIBLE);
-                showCurrentLocationWeather();
-            } else {
-                showSettingsDialog();
-            }
-            initCityDatabase();
-        } else {
-            rlParent.setVisibility(View.GONE);
-            txtNoInternet.setVisibility(View.VISIBLE);
-        }
+        initDisplay();
     }
 
-
-    void initCityDatabase() {
-        dbHandler = new CityDBHandler(this);
-        dbHandler.open();
-
-        dataSource = dbHandler.getAllCities();
-
-        if (dataSource == null || dataSource.size() == 0) {
-            // fetch remote city list
-            CityInfoHandler cityInfo = new CityInfoHandler(this);
-            allCities = cityInfo.getCityInfo(new TaskCompleteListener() {
-                @Override
-                public void onComplete(Object o) {
-                    dataSource = dbHandler.getAllCities();
-                }
-            });
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -202,6 +144,76 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             break;
+        }
+    }
+
+    void initControls(){
+        this.txtCityName = (TextView) findViewById(R.id.txtCityName);
+        this.txtToday = (TextView) findViewById(R.id.txtToday);
+        this.txtCurrentTemp = (TextView) findViewById(R.id.txtCurrentTemperature);
+        this.txtmaxTemp = (TextView) findViewById(R.id.txtMaxTemperature);
+        this.txtMinTemp = (TextView) findViewById(R.id.txtMinTemperature);
+        this.txtSunrise = (TextView) findViewById(R.id.txtSunrise);
+        this.txtSunset = (TextView) findViewById(R.id.txtSunset);
+        this.txtWind = (TextView) findViewById(R.id.txtWind);
+        this.txtWeatherInfo = (TextView) findViewById(R.id.txtWeatherInfo);
+        this.btnGetInfo = (ImageButton) findViewById(R.id.btnGetInfo);
+        this.imgWeather = (ImageView) findViewById(R.id.imgWeather);
+        this.btnAddCities = (Button) findViewById(R.id.btnAddCity);
+
+        btnGetInfo.setVisibility(View.GONE);
+        btnGetInfo.setOnClickListener(getinfoClickListner);
+
+        rlParent = (RelativeLayout) findViewById(R.id.rlParent);
+        txtNoInternet = (TextView) findViewById(R.id.txtNoInternet);
+
+
+        btnAddCities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectCityDialog();
+            }
+        });
+
+    }
+
+    void initDisplay(){
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        isNetworkEnabled = isNetworkConnectionAvailable(this);
+
+        if (isNetworkEnabled) {
+            rlParent.setVisibility(View.VISIBLE);
+            txtNoInternet.setVisibility(View.GONE);
+            currentLocation = getLocation();
+
+            if (this.canGetLocation) {
+                btnGetInfo.setVisibility(View.VISIBLE);
+                showCurrentLocationWeather();
+            } else {
+                showSettingsDialog();
+            }
+            initCityDatabase();
+        } else {
+            rlParent.setVisibility(View.GONE);
+            txtNoInternet.setVisibility(View.VISIBLE);
+        }
+    }
+
+    void initCityDatabase() {
+        dbHandler = new CityDBHandler(this);
+        dbHandler.open();
+
+        dataSource = dbHandler.getAllCities();
+
+        if (dataSource == null || dataSource.size() == 0) {
+            // fetch remote city list
+            CityInfoHandler cityInfo = new CityInfoHandler(this);
+            allCities = cityInfo.getCityInfo(new TaskCompleteListener() {
+                @Override
+                public void onComplete(Object o) {
+                    dataSource = dbHandler.getAllCities();
+                }
+            });
         }
     }
 
