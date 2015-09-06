@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener getinfoClickListner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent forecast = new Intent(MainActivity.this, ForcastActivity.class);
+            Intent forecast = new Intent(MainActivity.this, ForecastActivity.class);
             forecast.putExtra(CityMap.COLUMN_LAT, currentLocation.getLatitude());
             forecast.putExtra(CityMap.COLUMN_LON, currentLocation.getLongitude());
             startActivity(forecast);
@@ -315,12 +315,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
             WeatherInfoHandler inforHandler = new WeatherInfoHandler(this);
-            inforHandler.getNultiCityWeather(Ids.toString(), new TaskCompleteListener() {
+            inforHandler.getMultiCityWeather(Ids.toString(), new TaskCompleteListener() {
                 @Override
                 public void onComplete(Object o) {
                     MultiCityWeather mWeather = (MultiCityWeather) o;
-                    ListView lstForecast = (ListView) findViewById(R.id.lstCities);
-                    lstForecast.setAdapter(new MultiCityWeatherAdapter(MainActivity.this, R.layout.multi_city_weather, new ArrayList<WeatherMap>(Arrays.asList(mWeather.list))));
+                    if(mWeather!=null && mWeather.cnt>0) {
+                        ListView lstForecast = (ListView) findViewById(R.id.lstCities);
+                        lstForecast.setAdapter(new MultiCityWeatherAdapter(MainActivity.this, R.layout.multi_city_weather, new ArrayList<WeatherMap>(Arrays.asList(mWeather.list))));
+                    }else{
+                        Toast.makeText(MainActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }

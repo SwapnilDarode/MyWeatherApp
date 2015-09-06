@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.swapnil.myweatherapp.ForcastActivity;
+import com.example.swapnil.myweatherapp.ForecastActivity;
 import com.example.swapnil.myweatherapp.R;
 import com.example.swapnil.myweatherapp.database.CityMap;
 import com.example.swapnil.myweatherapp.models.WeatherMap;
@@ -92,7 +92,7 @@ public class MultiCityWeatherAdapter extends ArrayAdapter<WeatherMap> {
         btnGetInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forecast = new Intent(mContext, ForcastActivity.class);
+                Intent forecast = new Intent(mContext, ForecastActivity.class);
                 forecast.putExtra(CityMap.COLUMN_LAT, Double.parseDouble(weatherMap.coord.lat));
                 forecast.putExtra(CityMap.COLUMN_LON, Double.parseDouble(weatherMap.coord.lon));
                 mContext.startActivity(forecast);

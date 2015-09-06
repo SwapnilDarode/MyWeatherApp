@@ -50,7 +50,7 @@ public class WeatherInfoHandler {
         task.execute(lat, lon);
     }
 
-    public void getNultiCityWeather(String Ids, TaskCompleteListener listener) {
+    public void getMultiCityWeather(String Ids, TaskCompleteListener listener) {
         FectMultiCityWeather multiCityTask = new FectMultiCityWeather(listener);
         multiCityTask.execute(Ids);
     }

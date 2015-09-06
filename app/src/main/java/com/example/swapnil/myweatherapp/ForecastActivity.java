@@ -14,7 +14,7 @@ import com.example.swapnil.myweatherapp.remoteCommunication.WeatherInfoHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ForcastActivity extends AppCompatActivity {
+public class ForecastActivity extends AppCompatActivity {
 
     String lat, lon;
     static final int days = 14;
@@ -44,7 +44,7 @@ public class ForcastActivity extends AppCompatActivity {
                 if (forecast != null && forecast.code != 404) {
                     setTitle(forecast.city.name);
                     ListView lstForecast = (ListView) findViewById(R.id.lstForecast);
-                    lstForecast.setAdapter(new CityForecastAdapter(ForcastActivity.this, R.layout.forecast_cell, new ArrayList<WeatherForecast.WeatherMap>(Arrays.asList(forecast.list))));
+                    lstForecast.setAdapter(new CityForecastAdapter(ForecastActivity.this, R.layout.forecast_cell, new ArrayList<WeatherForecast.WeatherMap>(Arrays.asList(forecast.list))));
                 } else {
                     showErrMessage();
                 }
@@ -53,7 +53,7 @@ public class ForcastActivity extends AppCompatActivity {
     }
 
     void showErrMessage(){
-        Toast.makeText(ForcastActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
+        Toast.makeText(ForecastActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
         finish();
     }
 }
