@@ -257,9 +257,9 @@ public class MainActivity extends AppCompatActivity {
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String selectedValues = txtCityName.getText() + "," + mtxtCities.getText().toString().trim();
+                String selectedValues =  mtxtCities.getText().toString().trim();
                 if (selectedValues.length() > 0) {
-                    moreCities = selectedValues.substring(0, selectedValues.lastIndexOf(',')).split(",");
+                    moreCities = selectedValues.substring(0, selectedValues.lastIndexOf(',')>0?selectedValues.lastIndexOf(','):selectedValues.length()).split(",");
 
                     populateWeatherForCities();
                     dialog.dismiss();
