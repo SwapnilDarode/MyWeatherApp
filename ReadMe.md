@@ -12,6 +12,7 @@ The application makes use of openweathermap.org APIs to fetch and display weathe
 > Provides option to add cities through a dialog interface that auto-suggest city names as user types in.
 > The selected city weather is displayed in a list view that is scrollable to view the weather information for selected cities.
 > The application provides an information icon at the bottom right of the daily weather view to fetch 14 day forecast for the selected city.
+
 ##### Note:
  - The code does not concentrate on the UI aspects as its not the highlight of the solution, but displays a readable and organized information in the UI.
 
@@ -29,6 +30,6 @@ The application makes use of openweathermap.org APIs to fetch and display weathe
  - Code Cleaning
  - Write Tests
  - Add Code Comments
- - Add Night Mode
-----
+ 
+ ——
 
