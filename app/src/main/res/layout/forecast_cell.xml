@@ -7,8 +7,7 @@
     <ImageView
         android:id="@+id/imgFWeather"
         android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/clear" />
+        android:layout_height="48dp"  />
     <TextView
         android:id="@+id/txtInfo"
         android:layout_width="wrap_content"

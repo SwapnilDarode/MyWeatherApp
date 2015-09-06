@@ -32,7 +32,6 @@
             android:id="@+id/txtCityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Al Shuwaikh"
             android:paddingLeft="10dp"
             android:textSize="32sp" />
 
@@ -41,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtCityName"
-            android:text="Thursday, 03 September"
             android:paddingLeft="10dp"
             android:textSize="14sp" />
 
@@ -54,8 +52,7 @@
             android:paddingLeft="15dp"
             android:paddingTop="15dp"
             android:minWidth="64dp"
-            android:minHeight="64dp"
-            android:src="@drawable/clear" />
+            android:minHeight="64dp" />
 
         <TextView
             android:id="@+id/txtWeatherInfo"
@@ -78,7 +75,6 @@
             android:layout_toRightOf="@+id/txtWeatherInfo"
             android:paddingLeft="20dp"
             android:paddingTop="15dp"
-            android:text="30"
             android:textSize="28sp" />
 
         <TextView
@@ -89,7 +85,6 @@
             android:layout_toRightOf="@+id/txtWeatherInfo"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
-            android:text="30"
             android:textSize="14sp" />
 
         <TextView
@@ -99,7 +94,6 @@
             android:layout_below="@+id/txtMaxTemperature"
             android:layout_toRightOf="@+id/txtWeatherInfo"
             android:paddingLeft="20dp"
-            android:text="30"
             android:textSize="14sp" />
 
         <TextView
@@ -133,9 +127,7 @@
                 android:id="@+id/txtSunrise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="06:30" />
-
+                android:layout_gravity="center_vertical" />
         <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -147,8 +139,7 @@
                 android:id="@+id/txtSunset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="07:05" />
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
 
     </RelativeLayout>
