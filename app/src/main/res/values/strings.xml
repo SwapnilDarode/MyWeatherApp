@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">My Weather App</string>
+
+    <string name="weather_map_key">b99b34e2a1a2eec26419d69848cd8e04</string>
+    <string name="welcome">Welcome to my weather app!</string>
+
+    <string name="action_addcities">Add cities</string>
+
+    <string name="cityListAPI">http://openweathermap.org/help/city_list.txt</string>
+
+    <string name="nointernet">Please check if you have an active internet connection.</string>
+    <string name="gpsTitle">GPS is not enabled</string>
+    <string name="gpsmessage">GPS is not enabled on your phone.\nEnable GPS for accurate results.</string>
+    <string name="btnEnablenow">Enable Now</string>
+    <string name="btnnotnow">Not now</string>
+    <string name="title_activity_forcast">ForcastActivity</string>
+
+    <string name="forecastInfo">15 day forecast</string>
+
+    <string name="maxTemp">Max : </string>
+    <string name="minTemp">Min : </string>
+    <string name="dayTemp">Day : </string>
+    <string name="nightTemp">Night : </string>
+    <string name="windSpeed">Wind Speed : </string>
+
+    <string name="oops">Oops! Something went wrong.</string>
+</resources>
