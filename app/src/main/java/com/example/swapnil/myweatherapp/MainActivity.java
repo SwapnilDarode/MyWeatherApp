@@ -229,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             connected = false;
         }
-        Log.d("API Class", "connected :" + connected);
         return connected;
     }
 
@@ -332,26 +331,30 @@ public class MainActivity extends AppCompatActivity {
 
     void populateCurrentCityWeatherDetails(WeatherMap weatherMap) {
 
-        this.txtCityName.setText(weatherMap.name + ", " + weatherMap.sys.country);
+        if(weatherMap!=null && weatherMap.cod !=404) {
+            this.txtCityName.setText(weatherMap.name + ", " + weatherMap.sys.country);
 
-        DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
 
-        this.txtToday.setText(dateFormat.format(new Date()));
-        this.txtWeatherInfo.setText(weatherMap.weather[0].description);
-        // &#176;
-        this.txtCurrentTemp.setText(Html.fromHtml("<b>" + weatherMap.main.temp + "&#8451;</b>"));
-        this.txtmaxTemp.setText(Html.fromHtml("<b>" + getResources().getString(R.string.maxTemp) + " " + weatherMap.main.temp_max + "&#8451;</b>"));
-        this.txtMinTemp.setText(Html.fromHtml("<b>" + getResources().getString(R.string.minTemp) + " " + weatherMap.main.temp_min + "&#8451;</b>"));
+            this.txtToday.setText(dateFormat.format(new Date()));
+            this.txtWeatherInfo.setText(weatherMap.weather[0].description);
+            // &#176;
+            this.txtCurrentTemp.setText(Html.fromHtml("<b>" + weatherMap.main.temp + "&#8451;</b>"));
+            this.txtmaxTemp.setText(Html.fromHtml("<b>" + getResources().getString(R.string.maxTemp) + " " + weatherMap.main.temp_max + "&#8451;</b>"));
+            this.txtMinTemp.setText(Html.fromHtml("<b>" + getResources().getString(R.string.minTemp) + " " + weatherMap.main.temp_min + "&#8451;</b>"));
 
-        dateFormat = new SimpleDateFormat("hh:mm a");
+            dateFormat = new SimpleDateFormat("hh:mm a");
 
-        this.txtSunrise.setText(dateFormat.format(new Date(weatherMap.sys.sunrise * 1000)));
+            this.txtSunrise.setText(dateFormat.format(new Date(weatherMap.sys.sunrise * 1000)));
 
-        this.txtSunset.setText(dateFormat.format(new Date(weatherMap.sys.sunset * 1000)));
+            this.txtSunset.setText(dateFormat.format(new Date(weatherMap.sys.sunset * 1000)));
 
-        this.txtWind.setText(getResources().getString(R.string.windSpeed) + " " + weatherMap.wind.speed + " m/s");
+            this.txtWind.setText(getResources().getString(R.string.windSpeed) + " " + weatherMap.wind.speed + " m/s");
 
-        Picasso.with(this).load(WeatherUtil.setWeatherIcon((weatherMap.weather[0].icon))).into(this.imgWeather);
+            Picasso.with(this).load(WeatherUtil.setWeatherIcon((weatherMap.weather[0].icon))).into(this.imgWeather);
+        }else{
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -395,20 +398,16 @@ public class MainActivity extends AppCompatActivity {
     public Location getLocation() {
         Location location = null;
         try {
-            // getting GPS status
             isGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-            // getting network status
             isNetworkEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.nointernet), Toast.LENGTH_LONG).show();
             } else {
                 this.canGetLocation = true;
-                // First get location from Network Provider
                 if (isNetworkEnabled) {
                     mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
-                    Log.d("Network", "Network");
                     if (mLocationManager != null) {
                         location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                         if (location != null) {
@@ -419,14 +418,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.nointernet), Toast.LENGTH_LONG).show();
                     return null;
                 }
-                // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
                     if (location == null) {
                         mLocationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, mLocationListener);
-                        Log.d("GPS Enabled", "GPS Enabled");
                         if (mLocationManager != null) {
                             location = mLocationManager
                                     .getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -466,27 +463,22 @@ public class MainActivity extends AppCompatActivity {
     public void showSettingsDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
-        // Setting Dialog Title
         alertDialog.setTitle(getResources().getString(R.string.gpsTitle));
 
-        // Setting Dialog Message
         alertDialog.setMessage(getResources().getString(R.string.gpsmessage));
 
-        // On pressing Settings button
         alertDialog.setPositiveButton(getResources().getString(R.string.btnEnablenow), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), LOCATION_ENABLED);
             }
         });
 
-        // on pressing cancel button
         alertDialog.setNegativeButton(getResources().getString(R.string.btnnotnow), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
 
-        // Showing Alert Message
         alertDialog.show();
     }
 }
