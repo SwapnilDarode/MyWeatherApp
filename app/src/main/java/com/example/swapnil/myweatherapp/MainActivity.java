@@ -305,27 +305,31 @@ public class MainActivity extends AppCompatActivity {
             dbHandler.open();
 
             ArrayList<City> selectedCities = dbHandler.getCitiesInfo(moreCities);
-            StringBuilder Ids = new StringBuilder(selectedCities.size() * 2 - 1);
-            Ids.append(selectedCities.get(0).id);
-            if (selectedCities.size() > 1) {
-                for (int cityIndex = 1; cityIndex < selectedCities.size(); cityIndex++) {
-                    Ids.append("," + selectedCities.get(cityIndex).id);
-                }
-            }
-
-            WeatherInfoHandler inforHandler = new WeatherInfoHandler(this);
-            inforHandler.getMultiCityWeather(Ids.toString(), new TaskCompleteListener() {
-                @Override
-                public void onComplete(Object o) {
-                    MultiCityWeather mWeather = (MultiCityWeather) o;
-                    if(mWeather!=null && mWeather.cnt>0) {
-                        ListView lstForecast = (ListView) findViewById(R.id.lstCities);
-                        lstForecast.setAdapter(new MultiCityWeatherAdapter(MainActivity.this, R.layout.multi_city_weather, new ArrayList<WeatherMap>(Arrays.asList(mWeather.list))));
-                    }else{
-                        Toast.makeText(MainActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
+            if(selectedCities.size()>0) {
+                StringBuilder Ids = new StringBuilder(selectedCities.size() * 2 - 1);
+                Ids.append(selectedCities.get(0).id);
+                if (selectedCities.size() > 1) {
+                    for (int cityIndex = 1; cityIndex < selectedCities.size(); cityIndex++) {
+                        Ids.append("," + selectedCities.get(cityIndex).id);
                     }
                 }
-            });
+
+                WeatherInfoHandler inforHandler = new WeatherInfoHandler(this);
+                inforHandler.getMultiCityWeather(Ids.toString(), new TaskCompleteListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        MultiCityWeather mWeather = (MultiCityWeather) o;
+                        if (mWeather != null && mWeather.cnt > 0) {
+                            ListView lstForecast = (ListView) findViewById(R.id.lstCities);
+                            lstForecast.setAdapter(new MultiCityWeatherAdapter(MainActivity.this, R.layout.multi_city_weather, new ArrayList<WeatherMap>(Arrays.asList(mWeather.list))));
+                        } else {
+                            Toast.makeText(MainActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }else{
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.no_city), Toast.LENGTH_LONG).show();
+            }
         }
     }
 

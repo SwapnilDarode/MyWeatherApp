@@ -24,5 +24,6 @@
     <string name="windSpeed">Wind Speed : </string>
 
     <string name="oops">Oops! Something went wrong.</string>
+    <string name="no_city">No city with the provided name is found.</string>
     <string name="select_message">Please type city name/initials to select atleast one city from the suggestion list.</string>
 </resources>
