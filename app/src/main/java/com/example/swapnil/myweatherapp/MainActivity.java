@@ -2,7 +2,6 @@ package com.example.swapnil.myweatherapp;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
@@ -10,13 +9,10 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -147,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void initControls(){
+    void initControls() {
         this.txtCityName = (TextView) findViewById(R.id.txtCityName);
         this.txtToday = (TextView) findViewById(R.id.txtToday);
         this.txtCurrentTemp = (TextView) findViewById(R.id.txtCurrentTemperature);
@@ -177,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void initDisplay(){
+    void initDisplay() {
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        isNetworkEnabled = isNetworkConnectionAvailable(this);
+        isNetworkEnabled = WeatherUtil.isNetworkConnectionAvailable(this);
 
         if (isNetworkEnabled) {
             rlParent.setVisibility(View.VISIBLE);
@@ -215,21 +211,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    public static boolean isNetworkConnectionAvailable(Context context) {
-
-        boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-
-        if (netInfo != null) {
-            connected = true;
-        } else {
-            connected = false;
-        }
-        return connected;
     }
 
 
@@ -268,13 +249,13 @@ public class MainActivity extends AppCompatActivity {
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String selectedValues =  mtxtCities.getText().toString().trim();
+                String selectedValues = mtxtCities.getText().toString().trim();
                 if (selectedValues.length() > 0) {
-                    moreCities = selectedValues.substring(0, selectedValues.lastIndexOf(',')>0?selectedValues.lastIndexOf(','):selectedValues.length()).split(",");
+                    moreCities = selectedValues.substring(0, selectedValues.lastIndexOf(',') > 0 ? selectedValues.lastIndexOf(',') : selectedValues.length()).split(",");
 
                     populateWeatherForCities();
                     dialog.dismiss();
-                }else{
+                } else {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.select_message), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -305,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
             dbHandler.open();
 
             ArrayList<City> selectedCities = dbHandler.getCitiesInfo(moreCities);
-            if(selectedCities.size()>0) {
+            if (selectedCities.size() > 0) { // City found
                 StringBuilder Ids = new StringBuilder(selectedCities.size() * 2 - 1);
                 Ids.append(selectedCities.get(0).id);
                 if (selectedCities.size() > 1) {
@@ -327,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-            }else{
+            } else { // No City found with the name
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.no_city), Toast.LENGTH_LONG).show();
             }
         }
@@ -335,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
 
     void populateCurrentCityWeatherDetails(WeatherMap weatherMap) {
 
-        if(weatherMap!=null && weatherMap.cod !=404) {
+        if (weatherMap != null && weatherMap.cod != 404) {
             this.txtCityName.setText(weatherMap.name + ", " + weatherMap.sys.country);
 
             DateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
@@ -356,10 +337,9 @@ public class MainActivity extends AppCompatActivity {
             this.txtWind.setText(getResources().getString(R.string.windSpeed) + " " + weatherMap.wind.speed + " m/s");
 
             Picasso.with(this).load(WeatherUtil.setWeatherIcon((weatherMap.weather[0].icon))).into(this.imgWeather);
-        }else{
+        } else {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.oops), Toast.LENGTH_LONG).show();
         }
-
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
